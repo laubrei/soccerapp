@@ -1,0 +1,2 @@
+Select Count(*) AS 'Anzahl der Spieler' FROM `Match` m JOIN Statistic s on m.Date = s.MatchDate JOIN Player p on s.IDPlayer = p.ID;
+Select * From Statistic s JOIN Player on s.IDPlayer = Player.ID;
