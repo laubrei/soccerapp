@@ -10,21 +10,21 @@ public class Match implements Serializable{
     
     @Id
     private Date date;
-    private int goalsMadeTeam1;
-    private int goalsMadeTeam2;
+    private int goalsMade1Team;
+    private int goalsMade2Team;
     
     public Match() {}
 
-    public Match(Date date, int goalsMadeTeam1, int goalsMadeTeam2) {
+    public Match(Date date, int goalsMade1Team, int goalsMade2Team) {
         this.date = date;
-        this.goalsMadeTeam1 = goalsMadeTeam1;
-        this.goalsMadeTeam2 = goalsMadeTeam2;
+        this.goalsMade1Team = goalsMade1Team;
+        this.goalsMade2Team = goalsMade2Team;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.date);
+        hash = 89 * hash + Objects.hashCode(this.date);
         return hash;
     }
 
@@ -45,7 +45,7 @@ public class Match implements Serializable{
         }
         return true;
     }
-    
+
     public Date getDate() {
         return date;
     }
@@ -54,19 +54,21 @@ public class Match implements Serializable{
         this.date = date;
     }
 
-    public int getGoalsMadeTeam1() {
-        return goalsMadeTeam1;
+    public int getGoalsMade1Team() {
+        return goalsMade1Team;
     }
 
-    public void setGoalsMadeTeam1(int goalsMadeTeam1) {
-        this.goalsMadeTeam1 = goalsMadeTeam1;
+    public void setGoalsMade1Team(int goalsMade1Team) {
+        this.goalsMade1Team = goalsMade1Team;
     }
 
-    public int getGoalsMadeTeam2() {
-        return goalsMadeTeam2;
+    public int getGoalsMade2Team() {
+        return goalsMade2Team;
     }
 
-    public void setGoalsMadeTeam2(int goalsMadeTeam2) {
-        this.goalsMadeTeam2 = goalsMadeTeam2;
+    public void setGoalsMade2Team(int goalsMade2Team) {
+        this.goalsMade2Team = goalsMade2Team;
     }
+
+    
 }

@@ -13,6 +13,6 @@ import pkgModel.Player;
  *
  * @author schueler
  */
-public interface PlayerRepository extends JpaRepository<Player, Serializable>{
+public interface PlayerRepository extends JpaRepository<Player, Integer>{
     
 }

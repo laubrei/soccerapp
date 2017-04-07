@@ -17,7 +17,7 @@ import java.util.TreeSet;
 @Entity
 public class Player implements Serializable{
     @Id
-    private int idPlayer;
+    private int ID;
     private String name;
     private boolean isGoalie;
     private boolean isDefender;
@@ -28,8 +28,8 @@ public class Player implements Serializable{
     public Player() {
     }
     
-    public Player(int idPlayer, String name, boolean isGoalie, boolean isDefender, boolean isMidFielder, boolean isForward, boolean isActive) {
-        this.idPlayer = idPlayer;
+    public Player(int id, String name, boolean isGoalie, boolean isDefender, boolean isMidFielder, boolean isForward, boolean isActive) {
+        this.ID = id;
         this.name = name;
         this.isGoalie = isGoalie;
         this.isDefender = isDefender;
@@ -41,7 +41,7 @@ public class Player implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + this.idPlayer;
+        hash = 89 * hash + this.ID;
         return hash;
     }
 
@@ -57,18 +57,18 @@ public class Player implements Serializable{
             return false;
         }
         final Player other = (Player) obj;
-        if (this.idPlayer != other.idPlayer) {
+        if (this.ID != other.ID) {
             return false;
         }
         return true;
     }
     
     public int getIdPlayer() {
-        return idPlayer;
+        return ID;
     }
 
     public void setIdPlayer(int idPlayer) {
-        this.idPlayer = idPlayer;
+        this.ID = idPlayer;
     }
 
     public String getName() {

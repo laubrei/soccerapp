@@ -14,5 +14,5 @@ import pkgModel.Match;
  *
  * @author schueler
  */
-public interface MatchRepository extends JpaRepository<Match, Serializable> {
+public interface MatchRepository extends JpaRepository<Match, Integer> {
 }
