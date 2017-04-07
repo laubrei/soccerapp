@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -22,30 +24,41 @@ import pkgModel.Player;
  * @author schueler
  */
 @RestController
-@RequestMapping(value="player")
+@RequestMapping(value="/player")
 public class PlayerController {
     
     @Autowired
     PlayerRepository playerRepository;
     
-    @RequestMapping(method=GET)
+    @RequestMapping(value = "/check", method=GET)
+    public boolean checkPlayer(@RequestBody Player paramPlayer){
+        return playerRepository.exists(paramPlayer);
+    }
+    
+    @RequestMapping(value = "/all",method=GET)
     public Collection<Player> getAllPlayers(){
         List <Player> players = new ArrayList(playerRepository.findAll());
         return null;
     }
     
-    @RequestMapping(method=POST)
-    public void addPlayer(){
-      
+    @RequestMapping(value = "/add",method=POST)
+    public void addPlayer(@RequestBody Player paramPlayer){
+        playerRepository.save(paramPlayer);
     }
     
-    @RequestMapping(method=PUT)
-    public void updatePlayer(){
-        
+    @RequestMapping(value = "/update",method=PUT)
+    public void updatePlayer(@RequestBody Player paramPlayer){
+        playerRepository.save(paramPlayer);
     }
     
-    @RequestMapping(method=PUT)
-    public void deletePlayer(){
-        
+    @RequestMapping(value = "/delete",method=DELETE)
+    public void deletePlayer(@RequestBody Player paramPlayer){
+        try{
+            playerRepository.delete(paramPlayer);
+        }
+        catch(Exception ex){
+            paramPlayer.setIsActive(false);
+            playerRepository.save(paramPlayer);
+        }
     }
 }

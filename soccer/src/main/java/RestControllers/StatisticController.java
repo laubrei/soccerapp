@@ -8,50 +8,57 @@ package RestControllers;
 import Repositories.StatisticRepository;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
+import pkgModel.Match;
+import pkgModel.Player;
 import pkgModel.Statistic;
+import pkgModel.keys.StatisticKey;
 
 /**
  *
  * @author schueler
  */
 @RestController
-@RequestMapping(value="statistic")
+@RequestMapping(value="/statistic")
 public class StatisticController {
     
     @Autowired
     StatisticRepository statisticRepository;
     
-    @RequestMapping(method=GET)
-    public Statistic getStatisticOfPlayerOfMatch(){
-        return null;
+    @RequestMapping(value = "/get", method=GET)
+    public Statistic getStatisticOfPlayerOfMatch(@RequestBody Player paramPlayer,
+                                                    @RequestBody Match paramMatch){
+        return statisticRepository.findOne(new StatisticKey(paramPlayer, paramMatch));
     }
     
-    @RequestMapping(method=GET)
+    @RequestMapping(value = "/all", method=GET)
     public Collection<Statistic> getAllStatistics(){
-        return null;
+        return statisticRepository.findAll();
     }
     
-    @RequestMapping(method=GET)
-    public Collection<Statistic> getAllStatisticsOfYearOfPlayer(){
-        return null;
+    @RequestMapping(value = "/getByPlayer", method=GET)
+    public Collection<Statistic> getAllStatisticsOfPlayer(@RequestBody Player paramPlayer){
+        return statisticRepository.findByIdPlayerId(paramPlayer.getIdPlayer());
     }
     
-    @RequestMapping(method=POST)
-    public void addStatistic(){
+    @RequestMapping(value = "/add", method=POST)
+    public void addStatistic(@RequestBody Statistic paramStatistic){
+        statisticRepository.save(paramStatistic);
     }
     
-    @RequestMapping(method=PUT)
-    public void updateStatistic(){
-        
+    @RequestMapping(value = "/update", method=PUT)
+    public void updateStatistic(@RequestBody Statistic paramStatistic){
+        statisticRepository.save(paramStatistic);
     }
     
-    @RequestMapping(method=PUT)
-    public void deleteStatistic(){
-        
+    @RequestMapping(value = "/delete", method=DELETE)
+    public void deleteStatistic(@RequestBody Statistic paramStatistic){
+        statisticRepository.delete(paramStatistic);
     }
 }

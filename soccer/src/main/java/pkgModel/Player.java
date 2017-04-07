@@ -5,6 +5,7 @@
  */
 package pkgModel;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.util.TreeSet;
@@ -14,48 +15,60 @@ import java.util.TreeSet;
  * @author schueler
  */
 @Entity
-public class Player {
+public class Player implements Serializable{
     @Id
-    private int id;
+    private int idPlayer;
     private String name;
     private boolean isGoalie;
     private boolean isDefender;
     private boolean isMidFielder;
     private boolean isForward;
     private boolean isActive;
-    private TreeSet<Statistic> tsStatistic;
 
-    public Player(int id, String name, boolean isGoalie, boolean isMidFielder, boolean isDefender, boolean isForward, boolean isActive) {
-        this.id = id;
+    public Player() {
+    }
+    
+    public Player(int idPlayer, String name, boolean isGoalie, boolean isDefender, boolean isMidFielder, boolean isForward, boolean isActive) {
+        this.idPlayer = idPlayer;
         this.name = name;
         this.isGoalie = isGoalie;
-        this.isMidFielder = isMidFielder;
         this.isDefender = isDefender;
+        this.isMidFielder = isMidFielder;
         this.isForward = isForward;
         this.isActive = isActive;
-        this.tsStatistic = new TreeSet<>();
-    }
-    
-    
-    
-    public Player(String name) {
-        this.name = name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 89 * hash + this.idPlayer;
+        return hash;
     }
 
-    public TreeSet<Statistic> getTsStatistic() {
-        return tsStatistic;
-    }
-
-    public void setTsStatistic(TreeSet<Statistic> tsStatistic) {
-        this.tsStatistic = tsStatistic;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Player other = (Player) obj;
+        if (this.idPlayer != other.idPlayer) {
+            return false;
+        }
+        return true;
     }
     
-    public int getId() {
-        return id;
+    public int getIdPlayer() {
+        return idPlayer;
+    }
+
+    public void setIdPlayer(int idPlayer) {
+        this.idPlayer = idPlayer;
     }
 
     public String getName() {
@@ -66,76 +79,45 @@ public class Player {
         this.name = name;
     }
 
-    public boolean isGoalie() {
+    public boolean isIsGoalie() {
         return isGoalie;
     }
 
-    public void setGoalie(boolean goalie) {
-        isGoalie = goalie;
+    public void setIsGoalie(boolean isGoalie) {
+        this.isGoalie = isGoalie;
     }
 
-    public boolean isDefender() {
+    public boolean isIsDefender() {
         return isDefender;
     }
 
-    public void setDefender(boolean defender) {
-        isDefender = defender;
+    public void setIsDefender(boolean isDefender) {
+        this.isDefender = isDefender;
     }
 
-    public boolean isMidFielder() {
+    public boolean isIsMidFielder() {
         return isMidFielder;
     }
 
-    public void setMidFielder(boolean midFielder) {
-        isMidFielder = midFielder;
+    public void setIsMidFielder(boolean isMidFielder) {
+        this.isMidFielder = isMidFielder;
     }
 
-    public boolean isForward() {
+    public boolean isIsForward() {
         return isForward;
     }
 
-    public void setForward(boolean forward) {
-        isForward = forward;
+    public void setIsForward(boolean isForward) {
+        this.isForward = isForward;
     }
 
-    public boolean isActive() {
+    public boolean isIsActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
-    @Override
-    public String toString() {
-        return this.name;
-    }
-
-    public void updateProfile(boolean _isGoalie, boolean _isDefender, boolean _isMidFielder, boolean _isForward, boolean _isActive) throws Exception {
-        this.setGoalie(_isGoalie);
-        this.setDefender(_isDefender);
-        this.setMidFielder(_isMidFielder);
-        this.setForward(_isForward);
-        this.setActive(_isActive);
-    }
-
-    public Position getSelectedPosition() {
-        Position pos = null;
-        if (isGoalie()) {
-            pos = Position.GOALIE;
-        } else {
-            if (isDefender()) {
-                pos = Position.DEFENDER;
-            } else {
-                if (isMidFielder()) {
-                    pos = Position.MIDFIELDER;
-                } else {
-                    if (isForward()) {
-                        pos = Position.FORWARD;
-                    }
-                }
-            }
-        }
-        return pos;
-    }
+    
 }

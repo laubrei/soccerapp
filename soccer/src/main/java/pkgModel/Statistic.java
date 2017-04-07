@@ -1,46 +1,69 @@
 package pkgModel;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
+import pkgModel.keys.StatisticKey;
 
 @Entity
-public class Statistic {
+@IdClass(StatisticKey.class)
+public class Statistic implements Serializable{
 
     @Id
-    private int id;
-    private Match match;
+    @ManyToOne
+    private Player idPlayer;
+    
+    @Id
+    @ManyToOne
+    private Match matchDate;
+    
     private int goalsShot;
     private int goalsPenalty;
     private int goalsHead;
     private int goalsHeadSnow;
     private int goalsOwn;
     private int nutmegs;
+    private String team;
 
-    public Statistic(int id, Match match, int goalsShot, int goalsPenalty, int goalsHead, int goalsHeadSnow, int goalsOwn, int nutmegs) {
-        this.id = id;
-        this.match = match;
+    public Statistic() {
+    }
+    public Statistic(Player idPlayer, Match matchDate, int goalsShot, int goalsPenalty, 
+            int goalsHead, int goalsHeadSnow, int goalsOwn, int nutmegs, String team) {
+        this.idPlayer = idPlayer;
+        this.matchDate = matchDate;
         this.goalsShot = goalsShot;
         this.goalsPenalty = goalsPenalty;
         this.goalsHead = goalsHead;
         this.goalsHeadSnow = goalsHeadSnow;
         this.goalsOwn = goalsOwn;
         this.nutmegs = nutmegs;
+        this.team = team;
     }
 
-    public int getId() {
-        return id;
+    public String getTeam() {
+        return team;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTeam(String team) {
+        this.team = team;
+    }
+    
+    public Player getIdPlayer() {
+        return idPlayer;
     }
 
-    public Match getMatch() {
-        return match;
+    public void setIdPlayer(Player idPlayer) {
+        this.idPlayer = idPlayer;
     }
 
-    public void setMatch(Match match) {
-        this.match = match;
+    public Match getMatchDate() {
+        return matchDate;
+    }
+
+    public void setMatchDate(Match matchDate) {
+        this.matchDate = matchDate;
     }
 
     public int getGoalsShot() {
@@ -91,16 +114,5 @@ public class Statistic {
         this.nutmegs = nutmegs;
     }
 
-    @Override
-    public String toString() {
-        return "Statistic{"
-                + "match=" + match
-                + ", goalsShot=" + goalsShot
-                + ", goalsPenalty=" + goalsPenalty
-                + ", goalsHead=" + goalsHead
-                + ", goalsHeadSnow=" + goalsHeadSnow
-                + ", goalsOwn=" + goalsOwn
-                + ", nutmegs=" + nutmegs
-                + '}';
-    }
+    
 }
