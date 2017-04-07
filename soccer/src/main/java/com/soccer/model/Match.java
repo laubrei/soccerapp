@@ -1,4 +1,4 @@
-package pkgModel;
+package com.soccer.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;

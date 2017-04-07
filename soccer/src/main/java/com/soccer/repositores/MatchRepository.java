@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Repositories;
+package com.soccer.repositores;
 
 import java.io.Serializable;
+import java.util.Collection;
 import org.springframework.data.jpa.repository.JpaRepository;
-import pkgModel.Player;
+import com.soccer.model.Match;
 
 /**
  *
  * @author schueler
  */
-public interface PlayerRepository extends JpaRepository<Player, Integer>{
-    
+public interface MatchRepository extends JpaRepository<Match, Integer> {
 }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkgModel;
+package com.soccer.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.TreeSet;
 
 /**
  *
@@ -17,7 +17,8 @@ import java.util.TreeSet;
 @Entity
 public class Player implements Serializable{
     @Id
-    private int ID;
+    @Column(name="ID")
+    private int id;
     private String name;
     private boolean isGoalie;
     private boolean isDefender;
@@ -29,7 +30,7 @@ public class Player implements Serializable{
     }
     
     public Player(int id, String name, boolean isGoalie, boolean isDefender, boolean isMidFielder, boolean isForward, boolean isActive) {
-        this.ID = id;
+        this.id = id;
         this.name = name;
         this.isGoalie = isGoalie;
         this.isDefender = isDefender;
@@ -41,7 +42,7 @@ public class Player implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + this.ID;
+        hash = 89 * hash + this.id;
         return hash;
     }
 
@@ -57,18 +58,18 @@ public class Player implements Serializable{
             return false;
         }
         final Player other = (Player) obj;
-        if (this.ID != other.ID) {
+        if (this.id != other.id) {
             return false;
         }
         return true;
     }
     
     public int getIdPlayer() {
-        return ID;
+        return id;
     }
 
     public void setIdPlayer(int idPlayer) {
-        this.ID = idPlayer;
+        this.id = idPlayer;
     }
 
     public String getName() {

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RestControllers;
+package com.soccer.controllers;
 
-import Repositories.StatisticRepository;
+import com.soccer.repositores.StatisticRepository;
 import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +15,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
-import pkgModel.Match;
-import pkgModel.Player;
-import pkgModel.Statistic;
-import pkgModel.keys.StatisticKey;
+import com.soccer.model.Match;
+import com.soccer.model.Player;
+import com.soccer.model.Statistic;
+import com.soccer.model.keys.StatisticKey;
 
 /**
  *

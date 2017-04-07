@@ -1,11 +1,11 @@
-package pkgModel;
+package com.soccer.model;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
-import pkgModel.keys.StatisticKey;
+import com.soccer.model.keys.StatisticKey;
 
 @Entity
 @IdClass(StatisticKey.class)
@@ -13,7 +13,7 @@ public class Statistic implements Serializable{
 
     @Id
     @ManyToOne
-    private Player IDPlayer;
+    private Player idPlayer;
     
     @Id
     @ManyToOne
@@ -29,9 +29,9 @@ public class Statistic implements Serializable{
 
     public Statistic() {
     }
-    public Statistic(Player IDPlayer, Match matchDate, int goalsShot, int goalsPenalty, 
+    public Statistic(Player idPlayer, Match matchDate, int goalsShot, int goalsPenalty, 
             int goalsHead, int goalsHeadSnow, int goalsOwn, int nutmegs, String team) {
-        this.IDPlayer = IDPlayer;
+        this.idPlayer = idPlayer;
         this.matchDate = matchDate;
         this.goalsShot = goalsShot;
         this.goalsPenalty = goalsPenalty;
@@ -51,11 +51,11 @@ public class Statistic implements Serializable{
     }
     
     public Player getIdPlayer() {
-        return IDPlayer;
+        return idPlayer;
     }
 
-    public void setIdPlayer(Player IDPlayer) {
-        this.IDPlayer = IDPlayer;
+    public void setIdPlayer(Player idPlayer) {
+        this.idPlayer = idPlayer;
     }
 
     public Match getMatchDate() {

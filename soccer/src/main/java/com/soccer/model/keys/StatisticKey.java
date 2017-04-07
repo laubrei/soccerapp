@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pkgModel.keys;
+package com.soccer.model.keys;
 
 import java.io.Serializable;
 import java.util.Objects;
-import pkgModel.Match;
-import pkgModel.Player;
+import com.soccer.model.Match;
+import com.soccer.model.Player;
 
 /**
  *
