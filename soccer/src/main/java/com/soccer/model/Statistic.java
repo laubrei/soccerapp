@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import com.soccer.model.keys.StatisticKey;
+import javax.persistence.JoinColumn;
 
 @Entity
 @IdClass(StatisticKey.class)
@@ -13,11 +14,13 @@ public class Statistic implements Serializable{
 
     @Id
     @ManyToOne
-    private Player idPlayer;
+    @JoinColumn(name="id_player")
+    private Player fkPlayer;
     
     @Id
     @ManyToOne
-    private SoccerMatch idMatch;
+    @JoinColumn(name="id_match")
+    private SoccerMatch fkMatch;
     
     private int goalsShot;
     private int goalsPenalty;
@@ -29,10 +32,10 @@ public class Statistic implements Serializable{
 
     public Statistic() {
     }
-    public Statistic(Player idPlayer, SoccerMatch idMatch, int goalsShot, int goalsPenalty, 
+    public Statistic(Player fkPlayer, SoccerMatch fkMatch, int goalsShot, int goalsPenalty, 
             int goalsHead, int goalsHeadSnow, int goalsOwn, int nutmegs, String team) {
-        this.idPlayer = idPlayer;
-        this.idMatch = idMatch;
+        this.fkPlayer = fkPlayer;
+        this.fkMatch = fkMatch;
         this.goalsShot = goalsShot;
         this.goalsPenalty = goalsPenalty;
         this.goalsHead = goalsHead;
@@ -49,21 +52,21 @@ public class Statistic implements Serializable{
     public void setTeam(String team) {
         this.team = team;
     }
-    
-    public Player getIdPlayer() {
-        return idPlayer;
+
+    public Player getFkPlayer() {
+        return fkPlayer;
     }
 
-    public void setIdPlayer(Player idPlayer) {
-        this.idPlayer = idPlayer;
+    public void setFkPlayer(Player fkPlayer) {
+        this.fkPlayer = fkPlayer;
     }
 
-    public SoccerMatch getIdMatch() {
-        return idMatch;
+    public SoccerMatch getFkMatch() {
+        return fkMatch;
     }
 
-    public void setIdMatch(SoccerMatch idMatch) {
-        this.idMatch = idMatch;
+    public void setFkMatch(SoccerMatch fkMatch) {
+        this.fkMatch = fkMatch;
     }
 
     public int getGoalsShot() {
@@ -113,6 +116,4 @@ public class Statistic implements Serializable{
     public void setNutmegs(int nutmegs) {
         this.nutmegs = nutmegs;
     }
-
-    
 }

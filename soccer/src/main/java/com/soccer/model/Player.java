@@ -62,14 +62,16 @@ public class Player implements Serializable{
         }
         return true;
     }
-    
-    public int getIdPlayer() {
+
+    public int getId() {
         return id;
     }
 
-    public void setIdPlayer(int idPlayer) {
-        this.id = idPlayer;
+    public void setId(int id) {
+        this.id = id;
     }
+    
+    
 
     public String getName() {
         return name;

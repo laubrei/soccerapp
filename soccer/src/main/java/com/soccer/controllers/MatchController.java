@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.soccer.model.SoccerMatch;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 
 /**
@@ -69,7 +70,7 @@ public class MatchController {
     }
     
     @RequestMapping(value="/{idMatch}", method=DELETE)
-    public ResponseEntity<?> deleteMatch(@RequestBody int idMatch){
+    public ResponseEntity<?> deleteMatch(@PathVariable int idMatch){
         ResponseEntity r;
         
         try{

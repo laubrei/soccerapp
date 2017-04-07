@@ -53,8 +53,8 @@ public class StatisticController {
             SoccerMatch m = matchRepository.findOne(idMatch);
             if(m == null)
                 throw new Exception("Match with given Date doesn't exist!");
-
-            r = new ResponseEntity(statisticRepository.findOne(new StatisticKey(p, m)), HttpStatus.OK);
+            
+            r = new ResponseEntity(statisticRepository.findByFkPlayerIdAndFkMatchId(idPlayer, idMatch), HttpStatus.OK);
         }
         catch(Exception ex){
             r = new ResponseEntity(ex.getMessage(), HttpStatus.BAD_REQUEST);
@@ -71,7 +71,7 @@ public class StatisticController {
     @RequestMapping(value = "/{idPlayer}", method=GET)
     public ResponseEntity<?> getAllStatisticsOfPlayer(@PathVariable int idPlayer){
         //error shouldn't be possible
-        return new ResponseEntity(statisticRepository.findByIdPlayerId(idPlayer), HttpStatus.OK);
+        return new ResponseEntity(statisticRepository.findByFkPlayerId(idPlayer), HttpStatus.OK);
     }
     
     @RequestMapping(method=POST)
@@ -79,7 +79,7 @@ public class StatisticController {
         ResponseEntity r;
         
         try{            
-            if(statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getIdMatch())))
+            if(statisticRepository.findByFkPlayerIdAndFkMatchId(paramStatistic.getFkPlayer().getId(), paramStatistic.getFkMatch().getId()) == null)
                 throw new Exception("Statistic already exists!");
             statisticRepository.save(paramStatistic);
             r = new ResponseEntity(HttpStatus.OK);
@@ -96,7 +96,7 @@ public class StatisticController {
         ResponseEntity r;
         
         try{            
-            if(!statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getIdMatch())))
+            if(statisticRepository.findByFkPlayerIdAndFkMatchId(paramStatistic.getFkPlayer().getId(), paramStatistic.getFkMatch().getId()) != null)
                 throw new Exception("Statistic doesn't exist!");
             statisticRepository.save(paramStatistic);
             r = new ResponseEntity(HttpStatus.OK);
@@ -113,7 +113,7 @@ public class StatisticController {
         ResponseEntity r;
         
         try{            
-            if(!statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getIdMatch())))
+            if(statisticRepository.findByFkPlayerIdAndFkMatchId(paramStatistic.getFkPlayer().getId(), paramStatistic.getFkMatch().getId()) != null)
                 throw new Exception("Statistic doesn't exist!");
             statisticRepository.delete(paramStatistic);
             r = new ResponseEntity(HttpStatus.OK);

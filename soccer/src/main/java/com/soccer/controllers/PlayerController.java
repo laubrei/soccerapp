@@ -45,7 +45,7 @@ public class PlayerController {
         ResponseEntity r;
         
         try{
-            if(playerRepository.exists(paramPlayer.getIdPlayer()))
+            if(playerRepository.exists(paramPlayer.getId()))
                 throw new Exception("Player already exists!");
             playerRepository.save(paramPlayer);
             r = new ResponseEntity(HttpStatus.OK);
@@ -62,7 +62,7 @@ public class PlayerController {
         ResponseEntity r;
         
         try{
-            if(!playerRepository.exists(paramPlayer.getIdPlayer()))
+            if(!playerRepository.exists(paramPlayer.getId()))
                 throw new Exception("Player doesn't exist!");
             playerRepository.save(paramPlayer);
             r = new ResponseEntity(HttpStatus.OK);

@@ -15,23 +15,23 @@ import com.soccer.model.Player;
  * @author schueler
  */
 public class StatisticKey implements Serializable{
-    private Player idPlayer;
-    private SoccerMatch idMatch;
+    private Player fkPlayer;
+    private SoccerMatch fkMatch;
     
     public StatisticKey(){
         
     }
 
-    public StatisticKey(Player idPlayer, SoccerMatch idMatch) {
-        this.idPlayer = idPlayer;
-        this.idMatch = idMatch;
+    public StatisticKey(Player fkPlayer, SoccerMatch fkMatch) {
+        this.fkPlayer = fkPlayer;
+        this.fkMatch = fkMatch;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 73 * hash + Objects.hashCode(this.idPlayer);
-        hash = 73 * hash + Objects.hashCode(this.idMatch);
+        hash = 73 * hash + Objects.hashCode(this.fkPlayer);
+        hash = 73 * hash + Objects.hashCode(this.fkMatch);
         return hash;
     }
 
@@ -47,29 +47,31 @@ public class StatisticKey implements Serializable{
             return false;
         }
         final StatisticKey other = (StatisticKey) obj;
-        if (!Objects.equals(this.idPlayer, other.idPlayer)) {
+        if (!Objects.equals(this.fkPlayer, other.fkPlayer)) {
             return false;
         }
-        if (!Objects.equals(this.idMatch, other.idMatch)) {
+        if (!Objects.equals(this.fkMatch, other.fkMatch)) {
             return false;
         }
         return true;
     }
+
+    public Player getFkPlayer() {
+        return fkPlayer;
+    }
+
+    public void setFkPlayer(Player fkPlayer) {
+        this.fkPlayer = fkPlayer;
+    }
+
+    public SoccerMatch getFkMatch() {
+        return fkMatch;
+    }
+
+    public void setFkMatch(SoccerMatch fkMatch) {
+        this.fkMatch = fkMatch;
+    }
     
 
-    public Player getIdPlayer() {
-        return idPlayer;
-    }
-
-    public void setIdPlayer(Player idPlayer) {
-        this.idPlayer = idPlayer;
-    }
-
-    public SoccerMatch getIdMatch() {
-        return idMatch;
-    }
-
-    public void setIdMatch(SoccerMatch idMatch) {
-        this.idMatch = idMatch;
-    }    
+    
 }
