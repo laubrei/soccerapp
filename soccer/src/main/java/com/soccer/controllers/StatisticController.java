@@ -15,7 +15,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
-import com.soccer.model.Match;
+import com.soccer.model.SoccerMatch;
 import com.soccer.model.Player;
 import com.soccer.model.Statistic;
 import com.soccer.model.keys.StatisticKey;
@@ -52,7 +52,7 @@ public class StatisticController {
             Player p = playerRepository.findOne(idPlayer);
             if(p == null)
                 throw new Exception("Player with given ID doesn't exist!");
-            Match m = matchRepository.findOne(idMatch);
+            SoccerMatch m = matchRepository.findOne(idMatch);
             if(m == null)
                 throw new Exception("Match with given Date doesn't exist!");
 

@@ -5,15 +5,12 @@
  */
 package com.soccer.repositores;
 
-import java.io.Serializable;
-import java.util.Collection;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.soccer.model.Match;
-import java.util.Date;
+import com.soccer.model.SoccerMatch;
 
 /**
  *
  * @author schueler
  */
-public interface MatchRepository extends JpaRepository<Match, Integer> {
+public interface MatchRepository extends JpaRepository<SoccerMatch, Integer> {
 }

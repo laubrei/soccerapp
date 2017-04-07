@@ -14,7 +14,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
-import com.soccer.model.Match;
+import com.soccer.model.SoccerMatch;
 import java.util.Date;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +37,7 @@ public class MatchController {
     }
     
     @RequestMapping(method=POST)
-    public ResponseEntity<?> addMatch(@RequestBody Match paramMatch){
+    public ResponseEntity<?> addMatch(@RequestBody SoccerMatch paramMatch){
         ResponseEntity r;
         
         try{
@@ -54,7 +54,7 @@ public class MatchController {
     }
     
     @RequestMapping(method=PUT)
-    public ResponseEntity<?> updateMatch(@RequestBody Match paramMatch){
+    public ResponseEntity<?> updateMatch(@RequestBody SoccerMatch paramMatch){
         ResponseEntity r;
         
         try{
@@ -75,7 +75,7 @@ public class MatchController {
         ResponseEntity r;
         
         try{
-            Match m = matchRepository.findOne(idMatch);
+            SoccerMatch m = matchRepository.findOne(idMatch);
             if(m == null)
                 throw new Exception("Match with given Date doesn't exist!");
             

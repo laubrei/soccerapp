@@ -17,7 +17,7 @@ public class Statistic implements Serializable{
     
     @Id
     @ManyToOne
-    private Match idMatch;
+    private SoccerMatch idMatch;
     
     private int goalsShot;
     private int goalsPenalty;
@@ -29,7 +29,7 @@ public class Statistic implements Serializable{
 
     public Statistic() {
     }
-    public Statistic(Player idPlayer, Match idMatch, int goalsShot, int goalsPenalty, 
+    public Statistic(Player idPlayer, SoccerMatch idMatch, int goalsShot, int goalsPenalty, 
             int goalsHead, int goalsHeadSnow, int goalsOwn, int nutmegs, String team) {
         this.idPlayer = idPlayer;
         this.idMatch = idMatch;
@@ -58,11 +58,11 @@ public class Statistic implements Serializable{
         this.idPlayer = idPlayer;
     }
 
-    public Match getIdMatch() {
+    public SoccerMatch getIdMatch() {
         return idMatch;
     }
 
-    public void setIdMatch(Match idMatch) {
+    public void setIdMatch(SoccerMatch idMatch) {
         this.idMatch = idMatch;
     }
 

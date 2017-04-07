@@ -1,12 +1,11 @@
 package com.soccer.model;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Match implements Serializable{
+public class SoccerMatch implements Serializable{
     
     @Id
     private int id;
@@ -14,9 +13,9 @@ public class Match implements Serializable{
     private int goalsMade1Team;
     private int goalsMade2Team;
     
-    public Match() {}
+    public SoccerMatch() {}
 
-    public Match(int id, Date date, int goalsMade1Team, int goalsMade2Team) {
+    public SoccerMatch(int id, Date date, int goalsMade1Team, int goalsMade2Team) {
         this.id = id;
         this.date = date;
         this.goalsMade1Team = goalsMade1Team;
@@ -41,7 +40,7 @@ public class Match implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Match other = (Match) obj;
+        final SoccerMatch other = (SoccerMatch) obj;
         if (this.id != other.id) {
             return false;
         }

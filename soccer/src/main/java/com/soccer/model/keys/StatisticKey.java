@@ -7,7 +7,7 @@ package com.soccer.model.keys;
 
 import java.io.Serializable;
 import java.util.Objects;
-import com.soccer.model.Match;
+import com.soccer.model.SoccerMatch;
 import com.soccer.model.Player;
 
 /**
@@ -16,13 +16,13 @@ import com.soccer.model.Player;
  */
 public class StatisticKey implements Serializable{
     private Player idPlayer;
-    private Match idMatch;
+    private SoccerMatch idMatch;
     
     public StatisticKey(){
         
     }
 
-    public StatisticKey(Player idPlayer, Match idMatch) {
+    public StatisticKey(Player idPlayer, SoccerMatch idMatch) {
         this.idPlayer = idPlayer;
         this.idMatch = idMatch;
     }
@@ -65,11 +65,11 @@ public class StatisticKey implements Serializable{
         this.idPlayer = idPlayer;
     }
 
-    public Match getIdMatch() {
+    public SoccerMatch getIdMatch() {
         return idMatch;
     }
 
-    public void setIdMatch(Match idMatch) {
+    public void setIdMatch(SoccerMatch idMatch) {
         this.idMatch = idMatch;
     }    
 }
