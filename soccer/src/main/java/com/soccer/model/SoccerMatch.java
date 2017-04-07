@@ -1,6 +1,7 @@
 package com.soccer.model;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -10,16 +11,19 @@ public class SoccerMatch implements Serializable{
     @Id
     private int id;
     private Date date;
-    private int goalsMade1Team;
-    private int goalsMade2Team;
+    
+    @Column(name="goals_team_1_made")
+    private int goalsTeam1Made;
+    @Column(name="goals_team_2_made")
+    private int goalsTeam2Made;
     
     public SoccerMatch() {}
 
-    public SoccerMatch(int id, Date date, int goalsMade1Team, int goalsMade2Team) {
+    public SoccerMatch(int id, Date date, int goalsTeam1Made, int goalsTeam2Made) {
         this.id = id;
         this.date = date;
-        this.goalsMade1Team = goalsMade1Team;
-        this.goalsMade2Team = goalsMade2Team;
+        this.goalsTeam1Made = goalsTeam1Made;
+        this.goalsTeam2Made = goalsTeam2Made;
     }
 
     @Override
@@ -63,21 +67,19 @@ public class SoccerMatch implements Serializable{
         this.date = date;
     }
 
-    public int getGoalsMade1Team() {
-        return goalsMade1Team;
+    public int getGoalsTeam1Made() {
+        return goalsTeam1Made;
     }
 
-    public void setGoalsMade1Team(int goalsMade1Team) {
-        this.goalsMade1Team = goalsMade1Team;
+    public void setGoalsTeam1Made(int goalsTeam1Made) {
+        this.goalsTeam1Made = goalsTeam1Made;
     }
 
-    public int getGoalsMade2Team() {
-        return goalsMade2Team;
+    public int getGoalsTeam2Made() {
+        return goalsTeam2Made;
     }
 
-    public void setGoalsMade2Team(int goalsMade2Team) {
-        this.goalsMade2Team = goalsMade2Team;
+    public void setGoalsTeam2Made(int goalsTeam2Made) {
+        this.goalsTeam2Made = goalsTeam2Made;
     }
-
-    
 }

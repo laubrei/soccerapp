@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author schueler
  */
 @RestController
-@RequestMapping(value="/player")
+@RequestMapping(value="/players")
 public class PlayerController {
     
     @Autowired

@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author schueler
  */
 @RestController
-@RequestMapping(value="/statistic")
+@RequestMapping(value="/statistics")
 public class StatisticController {
     
     @Autowired

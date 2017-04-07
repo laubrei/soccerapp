@@ -25,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
  * @author schueler
  */
 @RestController
-@RequestMapping(value="/match")
+@RequestMapping(value="/matchs")
 public class MatchController {
     
     @Autowired
