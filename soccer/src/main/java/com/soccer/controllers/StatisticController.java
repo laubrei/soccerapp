@@ -6,7 +6,6 @@
 package com.soccer.controllers;
 
 import com.soccer.repositores.StatisticRepository;
-import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import com.soccer.model.Statistic;
 import com.soccer.model.keys.StatisticKey;
 import com.soccer.repositores.MatchRepository;
 import com.soccer.repositores.PlayerRepository;
-import java.util.Date;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
