@@ -15,5 +15,5 @@ import java.util.Date;
  *
  * @author schueler
  */
-public interface MatchRepository extends JpaRepository<Match, Date> {
+public interface MatchRepository extends JpaRepository<Match, Integer> {
 }

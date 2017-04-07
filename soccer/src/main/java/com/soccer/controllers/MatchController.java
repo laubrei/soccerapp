@@ -25,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
  * @author schueler
  */
 @RestController
-@RequestMapping(value="match")
+@RequestMapping(value="/match")
 public class MatchController {
     
     @Autowired
@@ -41,7 +41,7 @@ public class MatchController {
         ResponseEntity r;
         
         try{
-            if(matchRepository.exists(paramMatch.getDate()))
+            if(matchRepository.exists(paramMatch.getId()))
                 throw new Exception("Match already exists!");
             matchRepository.save(paramMatch);
             r = new ResponseEntity<>(HttpStatus.OK);
@@ -58,7 +58,7 @@ public class MatchController {
         ResponseEntity r;
         
         try{
-            if(!matchRepository.exists(paramMatch.getDate()))
+            if(!matchRepository.exists(paramMatch.getId()))
                 throw new Exception("Match doesn't exist!");
             matchRepository.save(paramMatch);
             r = new ResponseEntity<>(HttpStatus.OK);
@@ -70,12 +70,12 @@ public class MatchController {
         return r;  
     }
     
-    @RequestMapping(value="/{date}", method=DELETE)
-    public ResponseEntity<?> deleteMatch(@RequestBody Date date){
+    @RequestMapping(value="/{idMatch}", method=DELETE)
+    public ResponseEntity<?> deleteMatch(@RequestBody int idMatch){
         ResponseEntity r;
         
         try{
-            Match m = matchRepository.findOne(date);
+            Match m = matchRepository.findOne(idMatch);
             if(m == null)
                 throw new Exception("Match with given Date doesn't exist!");
             

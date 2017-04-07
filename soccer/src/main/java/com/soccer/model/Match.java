@@ -9,13 +9,15 @@ import javax.persistence.Id;
 public class Match implements Serializable{
     
     @Id
+    private int id;
     private Date date;
     private int goalsMade1Team;
     private int goalsMade2Team;
     
     public Match() {}
 
-    public Match(Date date, int goalsMade1Team, int goalsMade2Team) {
+    public Match(int id, Date date, int goalsMade1Team, int goalsMade2Team) {
+        this.id = id;
         this.date = date;
         this.goalsMade1Team = goalsMade1Team;
         this.goalsMade2Team = goalsMade2Team;
@@ -24,7 +26,7 @@ public class Match implements Serializable{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + Objects.hashCode(this.date);
+        hash = 19 * hash + this.id;
         return hash;
     }
 
@@ -40,10 +42,18 @@ public class Match implements Serializable{
             return false;
         }
         final Match other = (Match) obj;
-        if (!Objects.equals(this.date, other.date)) {
+        if (this.id != other.id) {
             return false;
         }
         return true;
+    }
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getDate() {

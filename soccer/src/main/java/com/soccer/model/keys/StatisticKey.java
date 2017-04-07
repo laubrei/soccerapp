@@ -16,22 +16,22 @@ import com.soccer.model.Player;
  */
 public class StatisticKey implements Serializable{
     private Player idPlayer;
-    private Match matchDate;
+    private Match idMatch;
     
     public StatisticKey(){
         
     }
 
-    public StatisticKey(Player idPlayer, Match matchDate) {
+    public StatisticKey(Player idPlayer, Match idMatch) {
         this.idPlayer = idPlayer;
-        this.matchDate = matchDate;
+        this.idMatch = idMatch;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 73 * hash + Objects.hashCode(this.idPlayer);
-        hash = 73 * hash + Objects.hashCode(this.matchDate);
+        hash = 73 * hash + Objects.hashCode(this.idMatch);
         return hash;
     }
 
@@ -50,7 +50,7 @@ public class StatisticKey implements Serializable{
         if (!Objects.equals(this.idPlayer, other.idPlayer)) {
             return false;
         }
-        if (!Objects.equals(this.matchDate, other.matchDate)) {
+        if (!Objects.equals(this.idMatch, other.idMatch)) {
             return false;
         }
         return true;
@@ -65,13 +65,11 @@ public class StatisticKey implements Serializable{
         this.idPlayer = idPlayer;
     }
 
-    public Match getMatchDate() {
-        return matchDate;
+    public Match getIdMatch() {
+        return idMatch;
     }
 
-    public void setMatchDate(Match matchDate) {
-        this.matchDate = matchDate;
-    }
-    
-    
+    public void setIdMatch(Match idMatch) {
+        this.idMatch = idMatch;
+    }    
 }

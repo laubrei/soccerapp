@@ -43,16 +43,16 @@ public class StatisticController {
     @Autowired
     MatchRepository matchRepository;
     
-    @RequestMapping(value="/{idPlayer}/{date}", method=GET)
+    @RequestMapping(value="/{idPlayer}/{idMatch}", method=GET)
     public ResponseEntity<?> getStatisticOfPlayerOfMatch(@PathVariable int idPlayer,
-                                                    @PathVariable Date date){
+                                                    @PathVariable int idMatch){
         ResponseEntity r;
         
         try{
             Player p = playerRepository.findOne(idPlayer);
             if(p == null)
                 throw new Exception("Player with given ID doesn't exist!");
-            Match m = matchRepository.findOne(date);
+            Match m = matchRepository.findOne(idMatch);
             if(m == null)
                 throw new Exception("Match with given Date doesn't exist!");
 
@@ -81,7 +81,7 @@ public class StatisticController {
         ResponseEntity r;
         
         try{            
-            if(statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getMatchDate())))
+            if(statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getIdMatch())))
                 throw new Exception("Statistic already exists!");
             statisticRepository.save(paramStatistic);
             r = new ResponseEntity(HttpStatus.OK);
@@ -98,7 +98,7 @@ public class StatisticController {
         ResponseEntity r;
         
         try{            
-            if(!statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getMatchDate())))
+            if(!statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getIdMatch())))
                 throw new Exception("Statistic doesn't exist!");
             statisticRepository.save(paramStatistic);
             r = new ResponseEntity(HttpStatus.OK);
@@ -115,7 +115,7 @@ public class StatisticController {
         ResponseEntity r;
         
         try{            
-            if(!statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getMatchDate())))
+            if(!statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getIdMatch())))
                 throw new Exception("Statistic doesn't exist!");
             statisticRepository.delete(paramStatistic);
             r = new ResponseEntity(HttpStatus.OK);
