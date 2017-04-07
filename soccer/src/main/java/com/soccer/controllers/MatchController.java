@@ -15,6 +15,10 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
 import com.soccer.model.Match;
+import java.util.Date;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 
 /**
  *
@@ -27,23 +31,61 @@ public class MatchController {
     @Autowired
     MatchRepository matchRepository;
     
-    @RequestMapping(value = "/all", method=GET)
-    public Collection<Match> getAllMatches(){
-        return matchRepository.findAll();
+    @RequestMapping(method=GET)
+    public ResponseEntity<?> getAllMatches(){
+        return new ResponseEntity<>(matchRepository.findAll(), HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/add", method=POST)
-    public void addMatch(@RequestBody Match paramMatch){
-        matchRepository.save(paramMatch);
+    @RequestMapping(method=POST)
+    public ResponseEntity<?> addMatch(@RequestBody Match paramMatch){
+        ResponseEntity r;
+        
+        try{
+            if(matchRepository.exists(paramMatch.getDate()))
+                throw new Exception("Match already exists!");
+            matchRepository.save(paramMatch);
+            r = new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch(Exception ex){
+            r = new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST); 
+        }
+        
+        return r;        
     }
     
-    @RequestMapping(value = "/update", method=PUT)
-    public void updateMatch(@RequestBody Match paramMatch){
-        matchRepository.save(paramMatch);
+    @RequestMapping(method=PUT)
+    public ResponseEntity<?> updateMatch(@RequestBody Match paramMatch){
+        ResponseEntity r;
+        
+        try{
+            if(!matchRepository.exists(paramMatch.getDate()))
+                throw new Exception("Match doesn't exist!");
+            matchRepository.save(paramMatch);
+            r = new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch(Exception ex){
+            r = new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST); 
+        }
+        
+        return r;  
     }
     
-    @RequestMapping(value = "/delete", method=PUT)
-    public void deleteMatch(@RequestBody Match paramMatch){
-        matchRepository.delete(paramMatch);
+    @RequestMapping(value="/{date}", method=DELETE)
+    public ResponseEntity<?> deleteMatch(@RequestBody Date date){
+        ResponseEntity r;
+        
+        try{
+            Match m = matchRepository.findOne(date);
+            if(m == null)
+                throw new Exception("Match with given Date doesn't exist!");
+            
+            matchRepository.delete(m);
+            r = new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch(Exception ex){
+            r = new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST); 
+        }
+        
+        return r; 
     }
 }

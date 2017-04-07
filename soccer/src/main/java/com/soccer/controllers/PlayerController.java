@@ -18,6 +18,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 import org.springframework.web.bind.annotation.RestController;
 import com.soccer.model.Player;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -30,34 +33,79 @@ public class PlayerController {
     @Autowired
     PlayerRepository playerRepository;
     
-    @RequestMapping(value = "/check", method=GET)
-    public boolean checkPlayer(@RequestBody Player paramPlayer){
-        return playerRepository.exists(paramPlayer.getIdPlayer());
+    @RequestMapping(value = "/check/{idPlayer}", method=GET)
+    public ResponseEntity<?> checkPlayer(@PathVariable int idPlayer){
+        return new ResponseEntity<>(playerRepository.exists(idPlayer), HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/all",method=GET)
-    public Collection<Player> getAllPlayers(){
-        return playerRepository.findAll();
+    @RequestMapping(method=GET)
+    public ResponseEntity<?> getAllPlayers(){
+        return new ResponseEntity<>(playerRepository.findAll(), HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/add",method=POST)
-    public void addPlayer(@RequestBody Player paramPlayer){
-        playerRepository.save(paramPlayer);
-    }
-    
-    @RequestMapping(value = "/update",method=PUT)
-    public void updatePlayer(@RequestBody Player paramPlayer){
-        playerRepository.save(paramPlayer);
-    }
-    
-    @RequestMapping(value = "/delete",method=DELETE)
-    public void deletePlayer(@RequestBody Player paramPlayer){
+    @RequestMapping(method=POST)
+    public ResponseEntity<?> addPlayer(@RequestBody Player paramPlayer){
+        ResponseEntity r;
+        
         try{
-            playerRepository.delete(paramPlayer);
+            if(playerRepository.exists(paramPlayer.getIdPlayer()))
+                throw new Exception("Player already exists!");
+            playerRepository.save(paramPlayer);
+            r = new ResponseEntity(HttpStatus.OK);
         }
         catch(Exception ex){
-            paramPlayer.setIsActive(false);
-            playerRepository.save(paramPlayer);
+            r = new ResponseEntity(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
+        
+        return r;
+    }
+    
+    @RequestMapping(method=PUT)
+    public ResponseEntity<?> updatePlayer(@RequestBody Player paramPlayer){
+        ResponseEntity r;
+        
+        try{
+            if(!playerRepository.exists(paramPlayer.getIdPlayer()))
+                throw new Exception("Player doesn't exist!");
+            playerRepository.save(paramPlayer);
+            r = new ResponseEntity(HttpStatus.OK);
+        }
+        catch(Exception ex){
+            r = new ResponseEntity(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        
+        return r;
+    }
+    
+    @RequestMapping(value="/{idPlayer}", method=DELETE)
+    public ResponseEntity<?> deletePlayer(@PathVariable int idPlayer){
+        ResponseEntity r;
+        Player p = playerRepository.findOne(idPlayer);
+        
+        try{
+            if(p == null)
+                throw new Exception("Player with given ID doesn't exist!");
+            playerRepository.delete(p);
+            r = new ResponseEntity("Player could be deleted", HttpStatus.OK);
+        }
+        catch(Exception ex){
+            if(p != null)
+            {
+                try{
+                    p.setIsActive(false);
+                    playerRepository.save(p);
+                    r = new ResponseEntity("Player was set inactive", HttpStatus.OK);
+                }
+                catch(Exception exInner){
+                    r = new ResponseEntity(exInner.getMessage(),HttpStatus.BAD_REQUEST);
+                }
+            }
+            else
+            {
+                r = new ResponseEntity(ex.getMessage(),HttpStatus.BAD_REQUEST); 
+            }
+        }
+        
+        return r;
     }
 }

@@ -9,10 +9,11 @@ import java.io.Serializable;
 import java.util.Collection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.soccer.model.Match;
+import java.util.Date;
 
 /**
  *
  * @author schueler
  */
-public interface MatchRepository extends JpaRepository<Match, Integer> {
+public interface MatchRepository extends JpaRepository<Match, Date> {
 }

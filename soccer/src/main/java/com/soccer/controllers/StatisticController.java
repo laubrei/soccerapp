@@ -19,6 +19,12 @@ import com.soccer.model.Match;
 import com.soccer.model.Player;
 import com.soccer.model.Statistic;
 import com.soccer.model.keys.StatisticKey;
+import com.soccer.repositores.MatchRepository;
+import com.soccer.repositores.PlayerRepository;
+import java.util.Date;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  *
@@ -31,34 +37,93 @@ public class StatisticController {
     @Autowired
     StatisticRepository statisticRepository;
     
-    @RequestMapping(value = "/get", method=GET)
-    public Statistic getStatisticOfPlayerOfMatch(@RequestBody Player paramPlayer,
-                                                    @RequestBody Match paramMatch){
-        return statisticRepository.findOne(new StatisticKey(paramPlayer, paramMatch));
+    @Autowired
+    PlayerRepository playerRepository;
+    
+    @Autowired
+    MatchRepository matchRepository;
+    
+    @RequestMapping(value="/{idPlayer}/{date}", method=GET)
+    public ResponseEntity<?> getStatisticOfPlayerOfMatch(@PathVariable int idPlayer,
+                                                    @PathVariable Date date){
+        ResponseEntity r;
+        
+        try{
+            Player p = playerRepository.findOne(idPlayer);
+            if(p == null)
+                throw new Exception("Player with given ID doesn't exist!");
+            Match m = matchRepository.findOne(date);
+            if(m == null)
+                throw new Exception("Match with given Date doesn't exist!");
+
+            r = new ResponseEntity(statisticRepository.findOne(new StatisticKey(p, m)), HttpStatus.OK);
+        }
+        catch(Exception ex){
+            r = new ResponseEntity(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        
+        return r;
     }
     
-    @RequestMapping(value = "/all", method=GET)
-    public Collection<Statistic> getAllStatistics(){
-        return statisticRepository.findAll();
+    @RequestMapping(method=GET)
+    public ResponseEntity<?> getAllStatistics(){
+        return new ResponseEntity (statisticRepository.findAll(), HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/getByPlayer", method=GET)
-    public Collection<Statistic> getAllStatisticsOfPlayer(@RequestBody Player paramPlayer){
-        return statisticRepository.findByIdPlayerId(paramPlayer.getIdPlayer());
+    @RequestMapping(value = "/{idPlayer}", method=GET)
+    public ResponseEntity<?> getAllStatisticsOfPlayer(@PathVariable int idPlayer){
+        //error shouldn't be possible
+        return new ResponseEntity(statisticRepository.findByIdPlayerId(idPlayer), HttpStatus.OK);
     }
     
-    @RequestMapping(value = "/add", method=POST)
-    public void addStatistic(@RequestBody Statistic paramStatistic){
-        statisticRepository.save(paramStatistic);
+    @RequestMapping(method=POST)
+    public ResponseEntity<?> addStatistic(@RequestBody Statistic paramStatistic){
+        ResponseEntity r;
+        
+        try{            
+            if(statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getMatchDate())))
+                throw new Exception("Statistic already exists!");
+            statisticRepository.save(paramStatistic);
+            r = new ResponseEntity(HttpStatus.OK);
+        }
+        catch(Exception ex){
+            r = new ResponseEntity(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        
+        return r;
     }
     
-    @RequestMapping(value = "/update", method=PUT)
-    public void updateStatistic(@RequestBody Statistic paramStatistic){
-        statisticRepository.save(paramStatistic);
+    @RequestMapping(method=PUT)
+    public ResponseEntity<?> updateStatistic(@RequestBody Statistic paramStatistic){
+        ResponseEntity r;
+        
+        try{            
+            if(!statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getMatchDate())))
+                throw new Exception("Statistic doesn't exist!");
+            statisticRepository.save(paramStatistic);
+            r = new ResponseEntity(HttpStatus.OK);
+        }
+        catch(Exception ex){
+            r = new ResponseEntity(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        
+        return r;
     }
     
-    @RequestMapping(value = "/delete", method=DELETE)
-    public void deleteStatistic(@RequestBody Statistic paramStatistic){
-        statisticRepository.delete(paramStatistic);
+    @RequestMapping(method=DELETE)
+    public ResponseEntity<?> deleteStatistic(@RequestBody Statistic paramStatistic){
+        ResponseEntity r;
+        
+        try{            
+            if(!statisticRepository.exists(new StatisticKey(paramStatistic.getIdPlayer(), paramStatistic.getMatchDate())))
+                throw new Exception("Statistic doesn't exist!");
+            statisticRepository.delete(paramStatistic);
+            r = new ResponseEntity(HttpStatus.OK);
+        }
+        catch(Exception ex){
+            r = new ResponseEntity(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        
+        return r;
     }
 }

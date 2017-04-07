@@ -17,7 +17,6 @@ import javax.persistence.Id;
 @Entity
 public class Player implements Serializable{
     @Id
-    @Column(name="ID")
     private int id;
     private String name;
     private boolean isGoalie;
