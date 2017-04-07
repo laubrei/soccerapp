@@ -79,7 +79,7 @@ public class StatisticController {
         ResponseEntity r;
         
         try{            
-            if(statisticRepository.findByFkPlayerIdAndFkMatchId(paramStatistic.getFkPlayer().getId(), paramStatistic.getFkMatch().getId()) == null)
+            if(statisticRepository.findByFkPlayerIdAndFkMatchId(paramStatistic.getFkPlayer().getId(), paramStatistic.getFkMatch().getId()) != null)
                 throw new Exception("Statistic already exists!");
             statisticRepository.save(paramStatistic);
             r = new ResponseEntity(HttpStatus.OK);
@@ -96,7 +96,7 @@ public class StatisticController {
         ResponseEntity r;
         
         try{            
-            if(statisticRepository.findByFkPlayerIdAndFkMatchId(paramStatistic.getFkPlayer().getId(), paramStatistic.getFkMatch().getId()) != null)
+            if(statisticRepository.findByFkPlayerIdAndFkMatchId(paramStatistic.getFkPlayer().getId(), paramStatistic.getFkMatch().getId()) == null)
                 throw new Exception("Statistic doesn't exist!");
             statisticRepository.save(paramStatistic);
             r = new ResponseEntity(HttpStatus.OK);
