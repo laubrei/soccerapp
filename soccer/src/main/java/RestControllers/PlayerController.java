@@ -32,13 +32,12 @@ public class PlayerController {
     
     @RequestMapping(value = "/check", method=GET)
     public boolean checkPlayer(@RequestBody Player paramPlayer){
-        return playerRepository.exists(paramPlayer);
+        return playerRepository.exists(paramPlayer.getIdPlayer());
     }
     
     @RequestMapping(value = "/all",method=GET)
     public Collection<Player> getAllPlayers(){
-        List <Player> players = new ArrayList(playerRepository.findAll());
-        return null;
+        return playerRepository.findAll();
     }
     
     @RequestMapping(value = "/add",method=POST)
