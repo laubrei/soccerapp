@@ -81,6 +81,8 @@ public class StatisticController {
         try{            
             if(statisticRepository.findByFkPlayerIdAndFkMatchId(paramStatistic.getFkPlayer().getId(), paramStatistic.getFkMatch().getId()) != null)
                 throw new Exception("Statistic already exists!");
+            paramStatistic.setFkMatch(matchRepository.findOne(paramStatistic.getFkMatch().getId()));
+            paramStatistic.setFkPlayer(playerRepository.findOne(paramStatistic.getFkPlayer().getId()));
             statisticRepository.save(paramStatistic);
             r = new ResponseEntity(HttpStatus.OK);
         }
@@ -98,6 +100,8 @@ public class StatisticController {
         try{            
             if(statisticRepository.findByFkPlayerIdAndFkMatchId(paramStatistic.getFkPlayer().getId(), paramStatistic.getFkMatch().getId()) == null)
                 throw new Exception("Statistic doesn't exist!");
+            paramStatistic.setFkMatch(matchRepository.findOne(paramStatistic.getFkMatch().getId()));
+            paramStatistic.setFkPlayer(playerRepository.findOne(paramStatistic.getFkPlayer().getId()));
             statisticRepository.save(paramStatistic);
             r = new ResponseEntity(HttpStatus.OK);
         }

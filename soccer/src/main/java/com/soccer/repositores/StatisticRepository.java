@@ -8,12 +8,13 @@ package com.soccer.repositores;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.soccer.model.Statistic;
+import com.soccer.model.keys.StatisticKey;
 
 /**
  *
  * @author schueler
  */
-public interface StatisticRepository extends JpaRepository<Statistic, Integer> {
+public interface StatisticRepository extends JpaRepository<Statistic, StatisticKey> {
     List<Statistic> findByFkPlayerId(int id);
-    Statistic findByFkPlayerIdAndFkMatchId(int fkPlayer, int fkMatch);
+    Statistic findByFkPlayerIdAndFkMatchId(int idPlayer, int idMatch);
 }

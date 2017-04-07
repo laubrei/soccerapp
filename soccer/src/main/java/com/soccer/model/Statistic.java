@@ -4,21 +4,22 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.ManyToOne;
 import com.soccer.model.keys.StatisticKey;
+import javax.persistence.CascadeType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 @IdClass(StatisticKey.class)
 public class Statistic implements Serializable{
 
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="id_player")
     private Player fkPlayer;
     
     @Id
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name="id_match")
     private SoccerMatch fkMatch;
     

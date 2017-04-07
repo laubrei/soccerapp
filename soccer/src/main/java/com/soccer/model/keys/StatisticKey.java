@@ -9,20 +9,21 @@ import java.io.Serializable;
 import java.util.Objects;
 import com.soccer.model.SoccerMatch;
 import com.soccer.model.Player;
+import java.util.logging.Logger;
 
 /**
  *
  * @author schueler
  */
 public class StatisticKey implements Serializable{
-    private Player fkPlayer;
-    private SoccerMatch fkMatch;
+    private int fkPlayer;
+    private int fkMatch;
     
     public StatisticKey(){
         
     }
 
-    public StatisticKey(Player fkPlayer, SoccerMatch fkMatch) {
+    public StatisticKey(int fkPlayer, int fkMatch) {
         this.fkPlayer = fkPlayer;
         this.fkMatch = fkMatch;
     }
@@ -30,8 +31,8 @@ public class StatisticKey implements Serializable{
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 73 * hash + Objects.hashCode(this.fkPlayer);
-        hash = 73 * hash + Objects.hashCode(this.fkMatch);
+        hash = 89 * hash + this.fkPlayer;
+        hash = 89 * hash + this.fkMatch;
         return hash;
     }
 
@@ -47,31 +48,32 @@ public class StatisticKey implements Serializable{
             return false;
         }
         final StatisticKey other = (StatisticKey) obj;
-        if (!Objects.equals(this.fkPlayer, other.fkPlayer)) {
+        if (this.fkPlayer != other.fkPlayer) {
             return false;
         }
-        if (!Objects.equals(this.fkMatch, other.fkMatch)) {
+        if (this.fkMatch != other.fkMatch) {
             return false;
         }
         return true;
     }
-
-    public Player getFkPlayer() {
+    
+    
+    
+    public int getFkPlayer() {
         return fkPlayer;
     }
 
-    public void setFkPlayer(Player fkPlayer) {
+    public void setFkPlayer(int fkPlayer) {
         this.fkPlayer = fkPlayer;
     }
 
-    public SoccerMatch getFkMatch() {
+    public int getFkMatch() {
         return fkMatch;
     }
 
-    public void setFkMatch(SoccerMatch fkMatch) {
+    public void setFkMatch(int fkMatch) {
         this.fkMatch = fkMatch;
     }
     
-
     
 }
